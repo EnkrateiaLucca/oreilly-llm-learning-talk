@@ -58,7 +58,6 @@ def ask_gpt4_vision(prompt, base64_image):
 
 # Set page config
 st.set_page_config(page_title="Drawing App", layout="wide")
-
 # Sidebar
 st.sidebar.header("Drawing Options")
 draw_mode = st.sidebar.selectbox("Draw Mode", ("freedraw", "line", "rect", "circle", "transform"))
@@ -94,30 +93,6 @@ if st.button("AI"):
     ai_input_image_path = 'ai_input_image.png'
     save_image(canvas_result.image_data, image_file_path=ai_input_image_path)
     base64_image = encode_image(ai_input_image_path)
-    prompt = "Write the code to represent the python object for what this drawing represents.\
-        The code should be runnable from the start and designed to be embeddable into a streamlit app.\
-            Only respond with code as plain text without code block syntax around it. Also, no need to import libraries."
+    prompt = "What is this image?"
     response = ask_gpt4_vision(prompt, base64_image)
-    
-    with open("./streamlit_llm_learning_canvas.py", "a") as f:
-        f.write(response)
-
-
-
-# Generate data
-data_table = pd.DataFrame({'Name': ['John', 'Alice', 'Bob'], 'Age': [25, 30, 35]})
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.table(data_table)
-
-with col2:
-    st.header("Interactive Dashboard")
-    
-    # Line Chart
-    st.subheader("Line Chart")
-    st.bar_chart(data_table)
-
-
-st.pyplot(fig)
+    st.write(response)
